@@ -12,6 +12,7 @@ import (
 
 	"github.com/Akashkarmokar/GoRestAPI/internal/config"
 	"github.com/Akashkarmokar/GoRestAPI/internal/http/handlers/student"
+	middleware "github.com/Akashkarmokar/GoRestAPI/internal/http/middlewars"
 )
 
 func main() {
@@ -23,7 +24,7 @@ func main() {
 	// setup router
 	router := http.NewServeMux()
 
-	router.HandleFunc("POST /api/students", student.New())
+	router.Handle("/api/students", middleware.CORS(http.HandlerFunc(student.New())))
 
 	// setup server
 	server := http.Server{
